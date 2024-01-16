@@ -9,14 +9,17 @@ const signin = (req, res, next) => {
   user
     .findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-        expiresIn: "1d",
-      });
-      // console.log(token);
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === "production" ? JWT_SECRET : "strong-secret",
+        {
+          expiresIn: "1d",
+        }
+      );
       //временно выключены параметры защиты
       return res
         .cookie("jwt", token, {
-          httpOnly: false,
+          httpOnly: true,
           secure: false,
           maxAge: 3600000 * 24,
         })
