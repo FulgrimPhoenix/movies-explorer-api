@@ -1,7 +1,7 @@
 const user = require("../models/user");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const { JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const signin = (req, res, next) => {
   const { email, password } = req.body;

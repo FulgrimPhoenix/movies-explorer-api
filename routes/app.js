@@ -6,11 +6,12 @@ const { signup } = require("../controllers/signup");
 const { signin } = require("../controllers/signin");
 const { signout } = require("../controllers/signout");
 const { auth } = require("../middlewares/auth");
+const { corsCheck } = require("../middlewares/corsCheck");
 
 const router = Router();
 
 router.post(
-  "/signup",
+  "/signup", corsCheck,
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30).required(),
@@ -22,7 +23,7 @@ router.post(
 );
 
 router.post(
-  "/signin",
+  "/signin", corsCheck,
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
@@ -32,10 +33,10 @@ router.post(
   signin
 );
 
-router.post('/signout', signout);
+router.post('/signout', corsCheck, signout);
 
-router.use("/users", auth, usersRouter);
-router.use("/movies", auth, moviesRouter);
+router.use("/users", corsCheck, auth, usersRouter);
+router.use("/movies", corsCheck, auth, moviesRouter);
 
 module.exports = {
   router,
