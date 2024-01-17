@@ -1,5 +1,6 @@
 const { NotFoundError } = require("../errors/errors.js");
 const user = require("../models/user.js");
+const { errorMassages } = require("../utils/constants.js");
 //Получение информации о текущем пользователе
 const getMyUserInfo = (req, res, next) => {
   const { _id } = req.user;
@@ -8,7 +9,7 @@ const getMyUserInfo = (req, res, next) => {
     .findById(_id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError("пользователь не найден");
+        throw new NotFoundError(errorMassages.notFound);
       }
       return res.status(200).json(user);
     })
@@ -26,7 +27,7 @@ const patchUserInfo = (req, res, next) => {
     )
     .then((user) => {
       if (!user) {
-        throw NotFoundError("пользователя не существует");
+        throw NotFoundError(errorMassages.notFound);
       }
       return res.status(200).json(user);
     })

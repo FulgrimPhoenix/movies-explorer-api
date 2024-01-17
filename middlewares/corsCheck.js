@@ -1,3 +1,6 @@
+const { accessError } = require("../errors/errors");
+const { errorMassages } = require("../utils/constants");
+
 const allowedDomens = [
   "http://localhost:3000",
   "http://mymovie.nomoredomainsmonster.ru",
@@ -14,7 +17,9 @@ const corsCheck = (req, res, next) => {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
     res.status(200);
-  }
+  }/* else{
+    throw new accessError(errorMassages.accessError);
+  } */
 
   if (method === 'OPTION') {
       res.header('Access-Control-Allow-Methods', allowedMethods);

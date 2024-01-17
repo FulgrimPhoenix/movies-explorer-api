@@ -1,18 +1,26 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
-const { router } = require("./routes/app");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
+require("dotenv").config(); //включение переменных окружения
+const { errors } = require("celebrate");
+const { router } = require("./routes/index");
 const { errorController } = require("./controllers/errorsController");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-const app = express();
-require("dotenv").config(); //включение переменных окружения
+const { limiter } = require("./utils/rateLimiter");
 
+const app = express();
+
+const { NODE_ENV, DB_URL } = process.env;
+
+app.use(limiter);
+app.use(helmet());
 app.use(bodyParser.json()); // для собирания JSON-формата
-app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса 
+app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 app.use(cookieParser());
 
-const { PORT = 3000, URL = "mongodb://0.0.0.0:27017/bitfilmsdb" } = process.env;
+const { PORT = 3001, URL = NODE_ENV === 'production' ? DB_URL : 'mongodb://0.0.0.0:27017/devDB' } = process.env;
 
 mongoose
   .connect(URL)
@@ -25,5 +33,6 @@ app.listen(PORT, (err) => {
 
 app.use(requestLogger);
 app.use(router);
-app.use(errorLogger)
+app.use(errorLogger);
+app.use(errors());
 app.use(errorController);

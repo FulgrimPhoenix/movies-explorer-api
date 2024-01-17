@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { AuthError, BadRequest } = require("../errors/errors");
+const { errorMassages } = require("../utils/constants");
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
@@ -9,7 +10,7 @@ const auth = (req, res, next) => {
     let payload;
 
     if (!token) {
-      throw new AuthError("Вы не авторизованы");
+      throw new AuthError(errorMassages.authError);
     }
 
     try {
@@ -18,7 +19,7 @@ const auth = (req, res, next) => {
         NODE_ENV === "production" ? JWT_SECRET : "strong-secret"
       );
     } catch {
-      throw new AuthError("Вы не авторизованы");
+      throw new AuthError(errorMassages.authError);
     }
 
     req.user = payload;

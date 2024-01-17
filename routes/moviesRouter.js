@@ -41,7 +41,7 @@ moviesRouter.delete(
   "/:movieId",
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().required().length(24).pattern(/\w+$/),
+      movieId: Joi.string().required().length(24).pattern(/\w+$/),
     }),
   }),
   deleteMovie

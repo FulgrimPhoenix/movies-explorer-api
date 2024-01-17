@@ -1,5 +1,6 @@
-const { BadRequest } = require("../errors/errors");
+const { NotFoundError, accessError } = require("../errors/errors");
 const movie = require("../models/movie.js");
+const { errorMassages } = require("../utils/constants.js");
 //Получение полного списка сохраненных фильмов
 const getMovies = (req, res, next) => {
   movie
@@ -11,7 +12,7 @@ const getMovies = (req, res, next) => {
 };
 //Добавление фильма в избранное. Автор захардкожен пока нет авторизации
 const createMovie = (req, res, next) => {
-  req.body.owner = { _id: req.user._id};
+  req.body.owner = { _id: req.user._id };
   const newMovie = new movie(req.body);
   newMovie
     .save()
@@ -23,12 +24,19 @@ const createMovie = (req, res, next) => {
 //Удаление фильма из избранного
 const deleteMovie = (req, res, next) => {
   movie
-    .findByIdAndDelete(req.params.movieId)
-    .then((deletedMovie) => {
-      if (!deletedMovie) {
-        throw new BadRequest("Фильм с данным id не найден");
+    .findById(req.params.movieId)
+    .then((movie) => {
+      if (!movie) {
+        throw new NotFoundError(errorMassages.notFound);
       }
-      return res.status(200).json(deletedMovie);
+      if (movie.owner.toString() !== req.user._id) {
+        throw new accessError(errorMassages.accessError);
+      }
+      movie
+        .findByIdAndDelete(req.params.movieId)
+        .then((deletedMovie) => {
+          return res.status(200).json(deletedMovie);
+        })
     })
     .catch(next);
 };
