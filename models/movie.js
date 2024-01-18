@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-module.exports = mongoose.model("movie", new mongoose.Schema({
+module.exports = mongoose.model('movie', new mongoose.Schema({
   country: {
     type: String,
     required: true,
@@ -28,7 +28,7 @@ module.exports = mongoose.model("movie", new mongoose.Schema({
       validator(v) {
         return /^https?:\/\//.test(v);
       },
-      massege: "В поле 'картинка' должна быть ссылка"
+      massege: 'В поле "картинка" должна быть ссылка',
     },
   },
   trailerLink: {
@@ -38,7 +38,7 @@ module.exports = mongoose.model("movie", new mongoose.Schema({
       validator(v) {
         return /^https?:\/\//.test(v);
       },
-      massege: "В поле 'трейлер' должна быть ссылка"
+      massege: 'В поле "трейлер" должна быть ссылка',
     },
   },
   thumbnail: {
@@ -48,12 +48,12 @@ module.exports = mongoose.model("movie", new mongoose.Schema({
       validator(v) {
         return /^https?:\/\//.test(v);
       },
-      massege: "В этом поле должна быть ссылка"
+      massege: 'В этом поле должна быть ссылка',
     },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
     required: true,
   },
   movieId: {
@@ -67,8 +67,8 @@ module.exports = mongoose.model("movie", new mongoose.Schema({
       validator(v) {
         return !/[a-z]/i.test(v);
       },
-      message: "Данное поле не должно содержать латинские символы"
-    }
+      message: 'Данное поле не должно содержать латинские символы',
+    },
   },
   nameEN: {
     type: String,
@@ -77,7 +77,7 @@ module.exports = mongoose.model("movie", new mongoose.Schema({
       validator(v) {
         return !/[а-я]/i.test(v);
       },
-      message: "Данное поле не должно содержать кириллические символы"
-    }
-  }
-}))
+      message: 'Данное поле не должно содержать кириллические символы',
+    },
+  },
+}));

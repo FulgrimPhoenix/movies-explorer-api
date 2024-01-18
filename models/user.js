@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const { AuthError } = require("../errors/errors");
-const bcryptjs = require("bcryptjs");
-const { errorMassages } = require("../utils/constants");
+const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
+const { AuthError } = require('../errors/errors');
+const { errorMassages } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema(
       minLength: 2,
       maxLength: 30,
       required: true,
-      default: "NewUser",
     },
     email: {
       type: String,
@@ -20,17 +19,18 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      select: false
+      select: false,
     },
   },
   {
     versionKey: false,
-  }
+  },
 );
 
+// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = async function (email, password) {
   return this.findOne({ email })
-    .select("+password")
+    .select('+password')
     .then((user) => {
       if (!user) {
         throw new AuthError(errorMassages.authDataError);
@@ -45,4 +45,4 @@ userSchema.statics.findUserByCredentials = async function (email, password) {
     });
 };
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model('user', userSchema);

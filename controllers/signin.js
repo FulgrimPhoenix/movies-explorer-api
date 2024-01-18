@@ -1,24 +1,25 @@
-const user = require("../models/user");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+require('dotenv').config();
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const signin = (req, res, next) => {
   const { email, password } = req.body;
 
-  user
+  User
     .findUserByCredentials(email, password)
-    .then((user) => {
+    .then((findedUser) => {
       const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === "production" ? JWT_SECRET : "strong-secret",
+        { _id: findedUser._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'strong-secret',
         {
-          expiresIn: "1d",
-        }
+          expiresIn: '1d',
+        },
       );
-      //временно выключены параметры защиты
+      // временно выключены параметры защиты
       return res
-        .cookie("jwt", token, {
+        .cookie('jwt', token, {
           httpOnly: true,
           secure: false,
           maxAge: 3600000 * 24,

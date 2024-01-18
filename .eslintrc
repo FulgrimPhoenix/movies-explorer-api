@@ -1,12 +1,14 @@
 {
   "extends": "airbnb-base",
   "parserOptions": {
-      "ecmaVersion": "latest"
+    "ecmaVersion": "latest"
   },
   "env": {
-      "es6": true
+    "es6": true
   },
+  // "import/extensions": ["error", { "ignorePackages": true }],
   "rules": {
-    "allow":["_id"]
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "linebreak-style": 0
   }
 }

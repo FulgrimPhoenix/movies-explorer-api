@@ -19,14 +19,14 @@ class AuthError extends Error {
   }
 }
 
-class userAlreadyExists extends Error {
+class UserAlreadyExists extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 409;
   }
 }
 
-class accessError extends Error {
+class AccessError extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 403;
@@ -37,6 +37,6 @@ module.exports = {
   NotFoundError,
   BadRequest,
   AuthError,
-  userAlreadyExists,
-  accessError,
+  UserAlreadyExists,
+  AccessError,
 }

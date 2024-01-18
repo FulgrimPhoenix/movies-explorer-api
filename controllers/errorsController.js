@@ -1,6 +1,6 @@
-const { errorMassages } = require("../utils/constants");
+const { errorMassages } = require('../utils/constants');
 
-const errorController = (err, req, res, next) => {
+const errorController = (err, req, res) => {
   const { code, statusCode = 500, message } = err;
 
   if (code === 11000) {
@@ -19,5 +19,5 @@ const errorController = (err, req, res, next) => {
 };
 
 module.exports = {
-  errorController
-}
+  errorController,
+};

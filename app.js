@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-const helmet = require("helmet");
-require("dotenv").config(); //включение переменных окружения
-const { errors } = require("celebrate");
-const { router } = require("./routes/index");
-const { errorController } = require("./controllers/errorsController");
-const { requestLogger, errorLogger } = require("./middlewares/logger");
-const { limiter } = require("./utils/rateLimiter");
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+require('dotenv').config(); //включение переменных окружения
+const { errors } = require('celebrate');
+const { router } = require('./routes/index');
+const { errorController } = require('./controllers/errorsController');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { limiter } = require('./utils/rateLimiter');
 
 const app = express();
 
@@ -24,7 +24,7 @@ const { PORT = 3000, URL = NODE_ENV === 'production' ? DB_URL : 'mongodb://0.0.0
 
 mongoose
   .connect(URL)
-  .then(() => console.log("connected to data base"))
+  .then(() => console.log('connected to data base'))
   .catch((err) => console.log(`data base connection error: ${err}`));
 
 app.listen(PORT, (err) => {

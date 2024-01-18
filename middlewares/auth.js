@@ -1,6 +1,7 @@
-const jwt = require("jsonwebtoken");
-const { AuthError, BadRequest } = require("../errors/errors");
-const { errorMassages } = require("../utils/constants");
+const jwt = require('jsonwebtoken');
+const { AuthError } = require('../errors/errors');
+const { errorMassages } = require('../utils/constants');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
@@ -16,9 +17,9 @@ const auth = (req, res, next) => {
     try {
       payload = jwt.verify(
         token,
-        NODE_ENV === "production" ? JWT_SECRET : "strong-secret"
+        NODE_ENV === 'production' ? JWT_SECRET : 'strong-secret',
       );
-    } catch {
+    } catch (err) {
       throw new AuthError(errorMassages.authError);
     }
 
