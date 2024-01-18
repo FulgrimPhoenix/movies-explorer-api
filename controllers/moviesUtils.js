@@ -6,7 +6,10 @@ const getMovies = (req, res, next) => {
   movie
     .find({})
     .then((movies) => {
-      return res.status(200).json(movies);
+      const myMovie = movies.filter(
+        (movie) => movie.owner.toString() === req.user._id
+      );
+      return res.status(200).json(myMovie);
     })
     .catch(next);
 };
@@ -32,11 +35,9 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new accessError(errorMassages.accessError);
       }
-      movie
-        .findByIdAndDelete(req.params.movieId)
-        .then((deletedMovie) => {
-          return res.status(200).json(deletedMovie);
-        })
+      movie.findByIdAndDelete(req.params.movieId).then((deletedMovie) => {
+        return res.status(200).json(deletedMovie);
+      });
     })
     .catch(next);
 };

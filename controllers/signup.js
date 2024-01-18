@@ -7,12 +7,13 @@ const signup = (req, res, next) => {
   const { email, name, password } = req.body;
 
   user
-    .findUserByCredentials(email, password)
-    .then((user) => {
-      if (user) {
+    .findOne({ email })
+    .then((existUser) => {
+      if (existUser) {
         throw new userAlreadyExists(errorMassages.userAlreadyExist);
       }
-      bcrypt.hash(password, 10).then((hash) => {
+
+      return bcrypt.hash(password, 10).then((hash) => {
         const newUser = new user({
           email: email,
           name: name,

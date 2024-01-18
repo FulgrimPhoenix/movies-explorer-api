@@ -20,7 +20,7 @@ app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 app.use(cookieParser());
 
-const { PORT = 3001, URL = NODE_ENV === 'production' ? DB_URL : 'mongodb://0.0.0.0:27017/devDB' } = process.env;
+const { PORT = 3000, URL = NODE_ENV === 'production' ? DB_URL : 'mongodb://0.0.0.0:27017/devDB' } = process.env;
 
 mongoose
   .connect(URL)
