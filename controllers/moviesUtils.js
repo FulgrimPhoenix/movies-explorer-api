@@ -1,7 +1,6 @@
-/* eslint-disable import/extensions */
-const { NotFoundError, AccessError } = require('../errors/errors.js');
-const Movie = require('../models/movie.js');
-const { errorMassages } = require('../utils/constants.js');
+const { NotFoundError, AccessError } = require('../errors/errors');
+const Movie = require('../models/movie');
+const { errorMassages } = require('../utils/constants');
 // Получение полного списка сохраненных фильмов
 const getMovies = (req, res, next) => {
   Movie.find({})

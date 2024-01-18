@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 class NotFoundError extends Error {
   constructor(message) {
     super(message);
@@ -39,4 +40,4 @@ module.exports = {
   AuthError,
   UserAlreadyExists,
   AccessError,
-}
+};

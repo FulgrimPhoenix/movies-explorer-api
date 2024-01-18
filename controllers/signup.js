@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs');
-const { UserAlreadyExists } = require('../errors/errors');
-const User = require('../models/user');
-const { errorMassages } = require('../utils/constants');
+const bcrypt = require("bcryptjs");
+const { UserAlreadyExists } = require("../errors/errors");
+const User = require("../models/user");
+const { errorMassages } = require("../utils/constants");
 
 const signup = (req, res, next) => {
   const { email, name, password } = req.body;
@@ -21,7 +21,9 @@ const signup = (req, res, next) => {
 
         return newUser
           .save()
-          .then((user) => res.status(201).json({ _id: user._id, email: user.email }));
+          .then((createdUser) => res
+            .status(201)
+            .json({ _id: createdUser._id, email: createdUser.email }));
       });
     })
     .catch(next);

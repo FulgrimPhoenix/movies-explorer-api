@@ -1,7 +1,6 @@
-/* eslint-disable import/extensions */
-const { NotFoundError } = require('../errors/errors.js');
-const User = require('../models/user.js');
-const { errorMassages } = require('../utils/constants.js');
+const { NotFoundError } = require('../errors/errors');
+const User = require('../models/user');
+const { errorMassages } = require('../utils/constants');
 // Получение информации о текущем пользователе
 const getMyUserInfo = (req, res, next) => {
   const { _id } = req.user;

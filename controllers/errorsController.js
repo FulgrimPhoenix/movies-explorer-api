@@ -1,6 +1,7 @@
 const { errorMassages } = require('../utils/constants');
 
-const errorController = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+const errorController = (err, req, res, next) => {
   const { code, statusCode = 500, message } = err;
 
   if (code === 11000) {

@@ -40,7 +40,7 @@ module.exports = {
   },
   deleteMovieReq: {
     params: Joi.object().keys({
-      movieId: Joi.string().required().length(24).pattern(/\w+$/),
+      movieId: Joi.string().hex().required().length(24),
     }),
   },
 };
