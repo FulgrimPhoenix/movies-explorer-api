@@ -11,7 +11,7 @@ const getMyUserInfo = (req, res, next) => {
       if (!findedUser) {
         throw new NotFoundError(errorMassages.notFound);
       }
-      return res.status(200).json(User);
+      return res.status(200).json(findedUser);
     })
     .catch(next);
 };
@@ -29,7 +29,7 @@ const patchUserInfo = (req, res, next) => {
       if (!updatedUser) {
         throw NotFoundError(errorMassages.notFound);
       }
-      return res.status(200).json(User);
+      return res.status(200).json(updatedUser);
     })
     .catch(next);
 };

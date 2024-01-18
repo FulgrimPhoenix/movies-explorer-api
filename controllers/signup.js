@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const { UserAlreadyExists } = require("../errors/errors");
-const User = require("../models/user");
-const { errorMassages } = require("../utils/constants");
+const bcrypt = require('bcryptjs');
+const { UserAlreadyExists } = require('../errors/errors');
+const User = require('../models/user');
+const { errorMassages } = require('../utils/constants');
 
 const signup = (req, res, next) => {
   const { email, name, password } = req.body;
