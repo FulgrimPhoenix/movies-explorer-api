@@ -24,6 +24,7 @@ const signin = (req, res, next) => {
           secure: false,
           maxAge: 3600000 * 24,
         })
+        .status(200).json({ email: findedUser.email, name: findedUser.name })
         .end();
     })
     .catch(next);

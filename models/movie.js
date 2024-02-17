@@ -63,21 +63,21 @@ module.exports = mongoose.model('movie', new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
-    validate: {
+    /* validate: {
       validator(v) {
         return !/[a-z]/i.test(v);
       },
       message: 'Данное поле не должно содержать латинские символы',
-    },
+    }, */
   },
   nameEN: {
     type: String,
     required: true,
-    validate: {
+    /* validate: {
       validator(v) {
         return !/[а-я]/i.test(v);
       },
       message: 'Данное поле не должно содержать кириллические символы',
-    },
+    }, */
   },
 }));

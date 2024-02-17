@@ -5,8 +5,7 @@ const { errorMassages } = require('../utils/constants');
 const getMyUserInfo = (req, res, next) => {
   const { _id } = req.user;
 
-  User
-    .findById(_id)
+  User.findById(_id)
     .then((findedUser) => {
       if (!findedUser) {
         throw new NotFoundError(errorMassages.notFound);
@@ -19,12 +18,11 @@ const getMyUserInfo = (req, res, next) => {
 const patchUserInfo = (req, res, next) => {
   const { _id } = req.user;
 
-  User
-    .findOneAndUpdate(
-      _id,
-      { email: req.body.email, name: req.body.name },
-      { new: true, runValidators: true },
-    )
+  User.findByIdAndUpdate(
+    _id,
+    { email: req.body.email, name: req.body.name },
+    { new: true, runValidators: true },
+  )
     .then((updatedUser) => {
       if (!updatedUser) {
         throw NotFoundError(errorMassages.notFound);
