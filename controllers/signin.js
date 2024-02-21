@@ -23,7 +23,7 @@ const signin = (req, res, next) => {
           httpOnly: true,
           maxAge: 3600000 * 24,
           sameSite: 'none',
-  	  secure: true,
+          secure: true,
         })
         .status(200).json({ email: findedUser.email, name: findedUser.name })
         .end();
