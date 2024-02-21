@@ -21,8 +21,9 @@ const signin = (req, res, next) => {
       return res
         .cookie('jwt', token, {
           httpOnly: true,
-          secure: false,
           maxAge: 3600000 * 24,
+          sameSite: 'none',
+  	  secure: true,
         })
         .status(200).json({ email: findedUser.email, name: findedUser.name })
         .end();

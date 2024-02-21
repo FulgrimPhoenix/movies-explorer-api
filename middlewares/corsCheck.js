@@ -1,4 +1,5 @@
 const allowedDomens = [
+  'http://localhost:3000/',
   'http://localhost:3000',
   'http://mymovie.nomoredomainsmonster.ru',
   'https://mymovie.nomoredomainsmonster.ru',
@@ -22,6 +23,7 @@ const corsCheck = (req, res, next) => {
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', allowedMethods);
     res.header('Access-Control-Allow-Headers', reqHeaders);
+    res.header("Access-Control-Expose-Headers", "*");
     res.status(200);
     return res.end();
   }
